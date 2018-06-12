@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="grid-x">
+    <div class="cell small-12 medium-6 medium-offset-2 large-4 large-offset-4">
+        <form class="log-in-form">
+            <h4 class="text-center">Cadastrar</h4>
+            <div class="account-type">
+                <label>
+                    <input type="radio" name="type" value="student" onchange="typeChanged(event)" checked />
+                    Estudante
+                </label>
+                <label>
+                    <input type="radio" name="type" value="company" onchange="typeChanged(event)" />
+                    Empresa
+                </label>
+            </div>
+            <div class="type type-student">
+                <label>
+                    Nome
+                    <input type="text" placeholder="Fulano de Tal">
+                </label>
+                <label>
+                    Email
+                    <input type="email" placeholder="nome@provedor.com">
+                </label>
+                <label>
+                    Senha
+                    <input type="password" placeholder="Senha">
+                </label>
+                <label>
+                    Confirmar Senha
+                    <input type="password" placeholder="Confirmar Senha">
+                </label>
+            </div>
+            <div class="type type-company">
+                <label>
+                    Nome da Empresa
+                    <input type="text" placeholder="Acme CO">
+                </label>
+                <label>
+                    Nome do Responsável
+                    <input type="text" placeholder="João Silva">
+                </label>
+                <label>
+                    CNPJ
+                    <input type="text" placeholder="João Silva">
+                </label>
+                <label>
+                    Email de Acesso
+                    <input type="email" placeholder="nome@acme.co">
+                </label>
+                <label>
+                    Senha de Acesso
+                    <input type="password" placeholder="Senha">
+                </label>
+                <label>
+                    Confirmar Senha
+                    <input type="password" placeholder="Confirmar Senha">
+                </label>
+            </div>
+            <p><input type="submit" class="button expanded" value="Cadastrar" /></p>
+            <p class="text-center"><a href="{% url 'login' %}">Cancelar</a></p>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block style %}
+<style>
+    .type {
+        display: none;
+    }
+    .log-in-form {
+        border: 1px solid #cacaca;
+        padding: 1rem;
+        border-radius: 0;
+        margin-top: 40px;
+    }
+</style>
+{% endblock style %}
+
+{% block script %}
+<script>
+    function typeChanged(event) {
+        event.preventDefault();
+        const element = event.target;
+
+        Array.from(document.getElementsByClassName('type')).map(element => element.style.display = 'none');
+        if (element.value === 'student') {
+            showGroup('type-student');
+        }
+        if (element.value === 'company') {
+            showGroup('type-company');
+        }
+    }
+    function showGroup(group) {
+        Array.from(document.getElementsByClassName(group)).map(element => element.style.display = 'block');
+    }
+    showGroup('type-student');
+</script>
+{% endblock script %}

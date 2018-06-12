@@ -21,6 +21,15 @@ Instale as dependências
 pip install -r requirements.txt
 ```
 
+Rode as migrações
+```
+python manage.py migrate
+```
+
+Crie um super usuário para usar a área administrativa
+```
+python manage.py createsuperuser
+```
 
 Inicie o servidor
 ```

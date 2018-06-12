@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="grid-x">
+    <div class="cell small-12 medium-6 medium-offset-2 large-4 large-offset-4">
+        <form class="log-in-form">
+            <h4 class="text-center">Fazer Login</h4>
+            <label>
+                Email
+                <input type="email" placeholder="nome@provedor.com">
+            </label>
+            <label>
+                Senha
+                <input type="password" placeholder="Senha">
+            </label>
+            <p><input type="submit" class="button expanded" value="Login" /></p>
+            <p class="text-center"><a href="#">Esqueci minha senha</a></p>
+            <p class="text-center"><a href="{% url 'register' %}">Registrar Agora!</a></p>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block style %}
+<style>
+.log-in-form {
+    border: 1px solid #cacaca;
+    padding: 1rem;
+    border-radius: 0;
+    margin-top: 40px;
+}
+</style>
+{% endblock style %}
