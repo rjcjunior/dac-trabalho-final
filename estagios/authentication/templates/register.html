@@ -38,54 +38,9 @@
                     </div>
                 </div>
             </div>
-            <div class="type type-student">
-                <div class="form-group">
-                    <label>Nome</label>
-                    <input name="name" class="form-control" type="text" placeholder="Fulano de Tal">
-                    <small class="form-text text-danger">{{ form.name.errors }}</small>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input name="email" class="form-control" type="email" placeholder="nome@provedor.com">
-                    <small class="form-text text-danger">{{ form.email.errors }}</small>
-                </div>
-                <div class="form-group">
-                    <label>Senha</label>
-                    <input name="password" class="form-control" type="password" placeholder="Senha">
-                    <small class="form-text text-danger">{{ form.password.errors }}</small>
-                </div>
-                <div class="form-group">
-                    <label>Confirmar Senha</label>
-                    <input name="confirm_password" class="form-control" type="password" placeholder="Confirmar Senha">
-                    <small class="form-text text-danger">{{ form.confirm_password.errors }}</small>
-                </div>
-            </div>
-            <div class="type type-company">
-                <label>
-                    Nome da Empresa
-                    <input type="text" placeholder="Acme CO">
-                </label>
-                <label>
-                    Nome do Responsável
-                    <input type="text" placeholder="João Silva">
-                </label>
-                <label>
-                    CNPJ
-                    <input type="text" placeholder="João Silva">
-                </label>
-                <label>
-                    Email de Acesso
-                    <input type="email" placeholder="nome@acme.co">
-                </label>
-                <label>
-                    Senha de Acesso
-                    <input type="password" placeholder="Senha">
-                </label>
-                <label>
-                    Confirmar Senha
-                    <input type="password" placeholder="Confirmar Senha">
-                </label>
-            </div>
+            {% include 'form_student.html' %}
+            {% include 'form_company.html' %}
+
             <div class="button-container">
                 <input type="submit" class="btn btn-primary" value="Cadastrar" />
                 <a class="btn btn-outline" href="{% url 'login' %}">Cancelar</a>
