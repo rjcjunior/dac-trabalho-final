@@ -17,8 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
 
+from .estagios.views import home
+
 
 urlpatterns = [
     path('', include('estagios.authentication.urls')),
     path('admin/', admin.site.urls),
+    path('', home, name='home'),
 ]
