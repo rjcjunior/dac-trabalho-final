@@ -30,12 +30,15 @@ class Student(User):
 
 
 class Company(User):
+    company_name = models.CharField(max_length=255)
+    cnpj = models.CharField(max_length=14)
+
     class Meta:
         verbose_name = 'empresa'
         verbose_name_plural = 'empresas'
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.company_name
 
 
 # class Jobs(models.Model):

@@ -22,3 +22,11 @@ class RegisterForm(forms.Form):
             self.add_error('password', error)
             self.add_error('confirm_password', error)
         return cleaned_data
+
+
+class StudentForm(RegisterForm):
+    pass
+
+
+class CompanyForm(RegisterForm):
+    pass

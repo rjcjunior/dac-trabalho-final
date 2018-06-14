@@ -75,21 +75,31 @@
 
 {% block script %}
 <script>
-    function typeChanged(event) {
+    const disableAllFields = () => {
+        Array.from(document.getElementsByClassName('form-control')).map(element => element.disabled = true);
+    };
+    const enableFormFields = (formName) => {
+        const form = document.getElementsByClassName(formName)[0];
+        Array.from(form.getElementsByClassName('form-control')).map(element => element.disabled = false);
+    };
+    const clearFields = (formName) => {
+        const form = document.getElementsByClassName(formName)[0];
+        Array.from(form.getElementsByClassName('form-control')).map(element => element.value = '');
+    };
+    const typeChanged = (event) => {
         event.preventDefault();
         const element = event.target;
 
         Array.from(document.getElementsByClassName('type')).map(element => element.style.display = 'none');
-        if (element.value === 'student') {
-            showGroup('type-student');
-        }
-        if (element.value === 'company') {
-            showGroup('type-company');
-        }
-    }
-    function showGroup(group) {
+        const formName = element.value === 'student' ? 'type-student' : 'type-company';
+        showGroup(formName);
+        clearFields(formName);
+        disableAllFields();
+        enableFormFields(formName);
+    };
+    const showGroup = (group) => {
         Array.from(document.getElementsByClassName(group)).map(element => element.style.display = 'block');
-    }
+    };
     showGroup('type-student');
 </script>
 {% endblock script %}
