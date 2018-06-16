@@ -30,3 +30,8 @@ class StudentForm(RegisterForm):
 
 class CompanyForm(RegisterForm):
     pass
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(required=True)
+    password = forms.CharField(widget=forms.PasswordInput)

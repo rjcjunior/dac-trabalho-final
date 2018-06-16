@@ -4,11 +4,11 @@
 {% block content %}
 <div class="container">
     <div class="">
-        <form class="log-in-form">
+        <form class="log-in-form" method="post">
             <h2 class="text-center">Fazer Login</h2>
             <div class="validation-alerts">
                 {% if messages %}
-                    <div class="alert alert-success" role="alert">
+                    <div class="alert alert-danger" role="alert">
                         {% for message in messages %}
                             <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
                         {% endfor %}
@@ -35,6 +35,7 @@
             <input type="submit" class="btn btn-primary" value="Login" />
             <a class="btn btn-outline" href="#">Esqueci minha senha</a>
             <a class="btn btn-outline" href="{% url 'register' %}">Registrar Agora!</a>
+        {% csrf_token %}
         </form>
     </div>
 </div>
