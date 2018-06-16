@@ -1,11 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sistema de Estágios</title>
-</head>
-<body>
-    <h1>FUNCIONA!!</h1>
-    <a href="{% url 'logout' %}">Logout</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            {% include './home/section_profile.html' %}
+        </div>
+        <div class="col-lg-4">
+            {% include './home/section_main.html' %}
+        </div>
+        <div class="col-lg-4">
+            {% include './home/section_action.html' %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block style %}
+<style>
+
+</style>
+{% endblock style %}
