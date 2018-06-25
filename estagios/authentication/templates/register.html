@@ -2,7 +2,15 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
+<header id="header" class="">
+    <div class="container-fluid">
+        <img class="img-header" src="../../static/logo.png">   
+        <h2>JOBER</h2>
+    </div>
+    
+</header><!-- /header -->
+
+<div class="container form-login">
     <div class="">
         <form class="log-in-form" method="post">
             <h2 class="text-center">Cadastrar</h2>
@@ -72,13 +80,19 @@
             </div>
 
             <div class="button-container">
-                <input type="submit" class="btn btn-primary" value="Cadastrar" />
+                <input type="submit" class="btn btn-primary btn-cadastrar"  value="Cadastrar" />
                 <a class="btn btn-outline" href="{% url 'login' %}">Cancelar</a>
             </div>
             {% csrf_token %}
         </form>
     </div>
 </div>
+<footer>
+    <div class="container-fluid">
+        <img class="float-right" src="../../static/logo-footer.png">   
+    </div>
+</footer>
+
 {% endblock content %}
 
 
@@ -88,7 +102,6 @@
         display: none;
     }
     .log-in-form {
-        border: 1px solid #cacaca;
         padding: 1rem;
         border-radius: 0;
         margin-top: 40px;
@@ -100,7 +113,78 @@
     .alert p {
         margin: 0;
     }
+    body::after {
+        content: "";
+        background-image: url("../../static/logo.jpg");
+        opacity: 0.1;
+        top: -52px;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: 75em;
+    }
+    .form-login{
+        width: 500px;
+    }
+    .log-in-form {
+        padding: 1rem;
+        border-radius: 0;
+        margin-top: 40px;
+    }
+    .btn-outline{
+        float: right;
+    }
+
+    .btn-cadastrar {
+        background: #cccccc;
+        color: #ff4170;
+        font-weight: bolder;
+        border: none;
+    }
+
+    #header{
+        border-bottom: 5px solid #cccccc;
+        padding-bottom: 20px;
+    }
+    #header .container-fluid {
+        text-align: left;
+    }
+    #header .container-fluid .img-header {
+        max-width: 100%;
+        max-height: 100%;
+        width: 126px;
+        vertical-align: top;
+    }
+
+    #header h2 {
+        color: #ff4170;
+        font-weight: bolder;
+        display: inline-block;
+        font-size: 5em;
+        margin: 24px 0 0 34px !important;
+    }
+    footer img {
+        max-width: 100%;
+        max-height: 100%;
+        height: 61px;
+        margin: 7px 27px 0 0;
+    }
+    footer {
+        position: relative;
+        padding-bottom: 20px;
+        background: #ff4170;
+        width: 100%;
+        height: 100px;
+        margin-bottom: 0;    
+    }
+
 </style>
+
 {% endblock style %}
 
 {% block script %}
