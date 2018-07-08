@@ -58,8 +58,11 @@ class Company(User):
 
 
 class Job(models.Model):
-    title = models.CharField(max_length=80)
-    description = models.CharField(max_length=1024)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    status = models.CharField(max_length=8, choices=STATUS_LIST)
-    period = models.CharField(max_length=9, choices=PERIOD_LIST)
+    title = models.CharField(max_length=80, verbose_name='Título')
+    description = models.CharField(max_length=1024, verbose_name='Descrição')
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='Empresa')
+    status = models.CharField(max_length=8, choices=STATUS_LIST, verbose_name='Status')
+    period = models.CharField(max_length=9, choices=PERIOD_LIST, verbose_name='Período')
+    application_date = models.DateField(verbose_name='Prazo de Inscrição', auto_now_add=True)
+    response_date = models.DateField(verbose_name='Data de Resposta', auto_now_add=True)
+

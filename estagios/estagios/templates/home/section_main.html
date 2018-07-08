@@ -2,8 +2,16 @@
     <h3>Vagas</h3>
     <a href="{% url 'create-job' %}" class="btn btn-raised btn-primary">Criar Estágio</a>
     {% for job in jobs_list %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{ job.title }}</h5>
+                <p class="card-text">{{ job.description }}</p>
+{#                <a href="#" class="card-link">Another link</a>#}
+            </div>
+        </div>
         <div class="job-section">
-            {{ job.title }}
+            <h5></h5>
+            <p></p>
         </div>
     {% empty %}
         <div class="job-section">
