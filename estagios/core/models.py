@@ -1,11 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User as DjangoUser
 
-# PERIODS = (
-#     ('MORNING', 'Manhã'),
-#     ('AFTERNOON', 'Tarde'),
-#     ('BOTH', 'Integral'),
-# )
+PERIOD_LIST = (
+    ('MORNING', 'Manhã'),
+    ('AFTERNOON', 'Tarde'),
+    ('BOTH', 'Integral'),
+)
+
+STATUS_LIST = (
+    ('REJECTED', 'Rejeitado'),
+    ('PENDING', 'Pendente'),
+    ('AVAILABLE', 'Disponível'),
+    ('CLOSED', 'Encerrado'),
+)
 
 
 class User(models.Model):
@@ -41,6 +48,8 @@ class Company(User):
         return self.company_name
 
 
-# class Jobs(models.Model):
-#     period = models.CharField('período', max_length=10, choices=PERIODS)
-
+class Job(models.Model):
+    title = models.CharField(max_length=80)
+    description = models.CharField(max_length=1024)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    status = models.CharField(max_length=8, choices=STATUS_LIST)
