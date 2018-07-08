@@ -22,6 +22,7 @@ from .estagios.views import home
 
 urlpatterns = [
     path('', include('estagios.authentication.urls')),
+    path('', include('estagios.estagios.urls')),
     path('admin/', admin.site.urls),
     path('', home, name='home'),
 ]

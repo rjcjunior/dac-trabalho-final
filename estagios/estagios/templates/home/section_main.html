@@ -1,62 +1,16 @@
 <div class="main">
     <h3>Vagas</h3>
-    <div class="job-section">
-        <h4 class="job-section-title">Vagas Abertas</h4>
-        <div class="job-container">
-            <h5 class="job-title">Vagas estágio em PHP</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus bibendum diam id neque semper hendrerit.
-                Aenean tristique quam a augue consectetur tristique. Nam vitae dictum nisl.
-            </p>
-            <p>X Candidaturas</p>
+    <a href="{% url 'create-job' %}" class="btn btn-raised btn-primary">Criar Estágio</a>
+    {% for job in jobs_list %}
+        <div class="job-section">
+            {{ job.title }}
         </div>
-        <div class="job-container">
-            <h5 class="job-title">Vaga Estágio em Banco de Dados</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus bibendum diam id neque semper hendrerit.
-                Aenean tristique quam a augue consectetur tristique. Nam vitae dictum nisl.
-            </p>
-            <p>X Candidaturas</p>
+    {% empty %}
+        <div class="job-section">
+            Nenhum estágio cadastrado.
         </div>
-    </div>
-    <div class="job-section">
-        <h4 class="job-section-title">Vagas Pendentes</h4>
-        <div class="job-container">
-            <h5 class="job-title">Vagas estágio em PHP</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus bibendum diam id neque semper hendrerit.
-                Aenean tristique quam a augue consectetur tristique. Nam vitae dictum nisl.
-            </p>
-            <p>X Candidaturas</p>
-        </div>
-        <div class="job-container">
-            <h5 class="job-title">Vaga Estágio em Banco de Dados</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus bibendum diam id neque semper hendrerit.
-                Aenean tristique quam a augue consectetur tristique. Nam vitae dictum nisl.
-            </p>
-            <p>X Candidaturas</p>
-        </div>
-    </div>
-    <div class="job-section">
-        <h4 class="job-section-title">Vagas Encerradas</h4>
-        <div class="job-container">
-            <h5 class="job-title">Vagas estágio em PHP</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus bibendum diam id neque semper hendrerit.
-                Aenean tristique quam a augue consectetur tristique. Nam vitae dictum nisl.
-            </p>
-            <p>X Candidaturas</p>
-        </div>
-        <div class="job-container">
-            <h5 class="job-title">Vaga Estágio em Banco de Dados</h5>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus bibendum diam id neque semper hendrerit.
-                Aenean tristique quam a augue consectetur tristique. Nam vitae dictum nisl.
-            </p>
-            <p>X Candidaturas</p>
-        </div>
-    </div>
+    {% endfor %}
+
 </div>
 {% block style %}
 <style>
