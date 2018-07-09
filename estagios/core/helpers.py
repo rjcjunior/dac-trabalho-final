@@ -1,7 +1,7 @@
 from ..core.models import Company, Job
 
 
-def get_company(user):
+def get_company_by_user(user):
     try:
         company = Company.objects.get(user=user)
         if company:

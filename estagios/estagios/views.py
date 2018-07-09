@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from .helpers import get_company_jobs, get_company
+from ..core.helpers import get_company_jobs, get_company_by_user
 from .forms import JobCreateForm
 from ..core.models import Job, STATUS_PENDING
 
@@ -11,7 +11,7 @@ def home(request):
         displayname = request.user.get_full_name()
         jobs_list = None
 
-        company = get_company(request.user)
+        company = get_company_by_user(request.user)
         if company:
             displayname = company.company_name
             jobs_list = get_company_jobs(company)
@@ -26,7 +26,7 @@ def home(request):
 
 
 def create_job(request):
-    company = get_company(request.user)
+    company = get_company_by_user(request.user)
     if company:
         form = JobCreateForm()
         if request.method == 'POST':
