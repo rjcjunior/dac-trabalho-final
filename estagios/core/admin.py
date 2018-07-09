@@ -1,11 +1,14 @@
 from django.contrib import admin
+
 from .models import Student, Company, User, Job
 from .helpers import get_company_by_user
 from .models import STATUS_PENDING
+from .forms import JobForm
 
 
 class JobAdmin(admin.ModelAdmin):
-    list_display = ['title', 'company', 'application_date' ]
+    list_display = ['title', 'company', 'application_date']
+    form = JobForm
 
     def get_queryset(self, request):
         qs = super(JobAdmin, self).get_queryset(request)
@@ -26,7 +29,7 @@ class JobAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return super(JobAdmin, self).get_fields(request)
         else:
-            return 'title', 'description', 'period'
+            return 'title', 'period', 'application_date', 'response_date', 'description'
 
 
 admin.site.register(User)

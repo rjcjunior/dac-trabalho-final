@@ -64,8 +64,8 @@ class Job(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='Empresa')
     status = models.CharField(max_length=10, choices=STATUS_LIST, verbose_name='Status')
     period = models.CharField(max_length=10, choices=PERIOD_LIST, verbose_name='Período')
-    application_date = models.DateField(verbose_name='Prazo de Inscrição', auto_now_add=True)
-    response_date = models.DateField(verbose_name='Data de Resposta', auto_now_add=True)
+    application_date = models.DateField(verbose_name='Prazo de Inscrição')
+    response_date = models.DateField(verbose_name='Data de Resposta')
 
     class Meta:
         verbose_name = 'estagio'
