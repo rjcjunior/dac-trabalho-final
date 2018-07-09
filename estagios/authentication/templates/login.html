@@ -30,7 +30,7 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                <input name="email" class="form-control" type="email" placeholder="Login...">
+                <input name="email" class="form-control" type="text" placeholder="Login...">
                 <small class="form-text text-danger">{{ form.email.errors }}</small>
             </div>
             <div class="form-group">
@@ -38,7 +38,6 @@
                 <small class="form-text text-danger">{{ form.password.errors }}</small>
             </div>
             <input type="submit" class="btn btn-primary btn-login" value="Login" />
-            <a class="btn btn-outline" href="#">Esqueci minha senha</a>
             <a class="btn btn-outline" href="{% url 'register' %}">Registrar Agora!</a>
         {% csrf_token %}
         </form>
@@ -78,15 +77,17 @@ body::after {
     margin-top: 40px;
 }
 .btn-outline{
-    float: right;
+    margin-top: 16px;
 }
-
+.btn {
+    margin: auto;
+    display: block;
+}
 .btn-login {
     background: #cccccc;
     color: #ff4170;
     font-weight: bolder;
     border: none;
-    margin: 0 41%;
 }
 #header{
     border-bottom: 5px solid #cccccc;

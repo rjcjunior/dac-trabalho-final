@@ -26,6 +26,7 @@ STATUS_LIST = (
 
 class User(models.Model):
     user = models.OneToOneField(DjangoUser, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'usuário'

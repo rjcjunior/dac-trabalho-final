@@ -8,8 +8,8 @@ from ..forms import RegisterForm, CompanyForm, StudentForm
 from estagios.core.models import Student, Company
 
 
-def create_django_user(name, email, password):
-    return DjangoUser.objects.create_user(email, email, password, first_name=name)
+def create_django_user(name, email, password, is_staff=False):
+    return DjangoUser.objects.create_user(email, email, password, first_name=name, is_staff=is_staff)
 
 
 def student_create(form):
@@ -28,7 +28,7 @@ def company_create(form):
         name = form.data.get('name')
         password = form.data.get('password')
 
-        newuser = create_django_user(name, email, password)
+        newuser = create_django_user(name, email, password, True)
 
         company_name = form.data.get('company_name')
         cnpj = form.data.get('cnpj')
