@@ -3,7 +3,7 @@
 from django.db import migrations
 
 
-def create_role(apps, schema_editor):
+def create_company_user_group(apps, schema_editor):
     Group = apps.get_model('auth', 'Group')
     Permission = apps.get_model('auth', 'Permission')
     ContentType = apps.get_model('contenttypes', 'ContentType')
@@ -14,7 +14,6 @@ def create_role(apps, schema_editor):
 
     group = Group.objects.create(name='Company')
     group.permissions.set(all_job_permissions)
-    group.permissions.set('')
 
 
 class Migration(migrations.Migration):
@@ -24,5 +23,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(create_role)
+        migrations.RunPython(create_company_user_group)
     ]
