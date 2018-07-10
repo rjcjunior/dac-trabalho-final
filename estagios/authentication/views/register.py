@@ -1,7 +1,7 @@
 from django.db.utils import IntegrityError
 from django.shortcuts import render
 from django.contrib import messages
-from django.contrib.auth.models import User as DjangoUser
+from django.contrib.auth.models import User as DjangoUser, Group
 from django.forms import ValidationError
 
 from ..forms import RegisterForm, CompanyForm, StudentForm
@@ -29,6 +29,8 @@ def company_create(form):
         password = form.data.get('password')
 
         newuser = create_django_user(name, email, password, True)
+        company_group = Group.objects.get(name='Company')
+        company_group.user_set.add(newuser)
 
         company_name = form.data.get('company_name')
         cnpj = form.data.get('cnpj')
