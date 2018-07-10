@@ -36,6 +36,17 @@ class User(models.Model):
         return self.user.get_full_name()
 
 
+class Skill(models.Model):
+    title = models.CharField(max_length=48, verbose_name='Título')
+
+    class Meta:
+        verbose_name = 'competência'
+        verbose_name_plural = 'competências'
+
+    def __str__(self):
+        return self.title
+
+
 class Student(User):
     # availability = models.CharField('disponibilidade', max_length=10, choices=PERIODS)
     class Meta:
@@ -66,12 +77,13 @@ class Job(models.Model):
     period = models.CharField(max_length=10, choices=PERIOD_LIST, verbose_name='Período')
     application_date = models.DateField(verbose_name='Prazo de Inscrição')
     response_date = models.DateField(verbose_name='Data de Resposta')
+    skills = models.ManyToManyField(Skill, verbose_name='Habilidades')
 
     class Meta:
         verbose_name = 'estagio'
         verbose_name_plural = 'estagios'
 
-    def __str__(self):  # Mostra o nome de cada Speaker no admin
+    def __str__(self):
         return self.title
 
 
