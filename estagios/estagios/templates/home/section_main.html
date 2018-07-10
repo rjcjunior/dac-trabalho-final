@@ -1,12 +1,17 @@
 <div class="main">
-    <h3>Vagas</h3>
-    <a href="{% url 'create-job' %}" class="btn btn-raised btn-primary">Criar Estágio</a>
+   {% if isCompany %}
+        <a href="{% url 'create-job' %}" class="btn btn-raised btn-primary btn-empresa"> <i class="fas fa-plus"></i> Cadastrar Nova Vaga</a>
+   {% endif %}
+
+    <h3>Vagas Disponiveis</h3>
+
+ 
     {% for job in jobs_list %}
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">{{ job.title }}</h5>
                 <p class="card-text">{{ job.description }}</p>
-{#                <a href="#" class="card-link">Another link</a>#}
+               <a href="#" class="card-link">   <i class="fas fa-plus"></i></a>
             </div>
         </div>
         <div class="job-section">
@@ -22,6 +27,20 @@
 </div>
 {% block style %}
 <style>
+    .btn-empresa{
+        color: #ff3c73;
+        background: white;
+        border: none;
+    }
+    .btn-empresa:hover{
+        background: white;
+        color: #000;
+    }
+    .btn-empresa .fa-plus{
+        border: 1px solid ;
+        padding: 5px;
+        border-radius: 50%;
+    }
     .job-section {
         margin-bottom: 2rem;
     }

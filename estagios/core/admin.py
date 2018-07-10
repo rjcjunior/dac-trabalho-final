@@ -7,7 +7,8 @@ from .forms import JobForm
 
 
 class JobAdmin(admin.ModelAdmin):
-    list_display = ['title', 'company', 'application_date']
+    list_display = ['title', 'company','status', 'application_date']
+    ordering = ('status',)
     filter_horizontal = ('skills',)
     form = JobForm
 
@@ -15,6 +16,7 @@ class JobAdmin(admin.ModelAdmin):
         qs = super(JobAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
+            
         company = get_company_by_user(request.user)
         return qs.filter(company=company)
 
@@ -30,8 +32,7 @@ class JobAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return super(JobAdmin, self).get_fields(request)
         else:
-            return 'title', 'period', 'application_date', 'response_date', 'description', 'skills'
-
+            return 'title', 'period','status', 'application_date', 'response_date', 'description', 'skills'
 
 admin.site.register(User)
 admin.site.register(Student)

@@ -9,6 +9,11 @@ def get_company_by_user(user):
     except:
         return False
 
+def get_company_jobs_avaliables():
+    try:
+        return Job.objects.filter(status='AVAILABLE')
+    except:
+        return None
 
 def get_company_jobs(company):
     try:

@@ -4,67 +4,65 @@
 {% block content %}
 <header id="header" class="">
     <div class="container-fluid">
-        <img class="img-header" src="../../static/logo.png">   
+        <h3>VISUALIZAR VAGA</h3>
     </div>
     
 </header><!-- /header -->
 <div class="row">
-        <div class="col-sm-4">
-            {% include './home/section_profile.html' %}
+        <div class="col-sm-6">
+            <h3>Titulo da vaga aqui</h3>
+            <p>Nome da empresa</p>
+            <p>Descrição</p>
+            <h3>Habilidades requeridas</h3>
+            <ul>
+                <li><i class="fa fa-star" aria-hidden="true"></i>Loop Para a habilidades</li>
+            </ul>
         </div>
-        <div class="col-sm-4">
-            {% include './home/section_main.html' %}
+        <div class="col-sm-6">
+            <i class="fas fa-briefcase"></i>
         </div>
-        <div class="col-sm-4">
-            {% include './home/section_action.html' %}
+        <div style="width: 100%;">
+            <a href="" class="btn btn-primary btn-login"/> Candidatar-se</a>
         </div>
+        <div style="width: 100%;">
+            <a href="{% url 'home' %}" class="btn btn-primary btn-login"/> Voltar</a>
+        </div>
+
 </div>
 {% endblock content %}
 
 
 {% block style %}
 <style>
-    /* Seção Action */
+    /* Seção direita */
+    .fas.fa-briefcase {
+        color: #cccccc;
+        opacity: 0.1;
+        text-align: center;
+        font-size: 19.9em;
+    }
+    /* Seção esquerda */
     ul{
         list-style: none;
     }
     a:hover{
         color: #cccccccc;
     }
+    .fa.fa-star {
+        color:#cccccccc;
+        margin-right: 5px;
+    }
     /* Seção Main */
-    .card {
-        width: 100% !important;
-        background: #ff3c73;
-        color: white;
-        margin-bottom: 10px;
-    }
-    .card-link{
-        color: white;
-        position: absolute;
-        right: 20px;
-        top: 38%;
-        font-size: 1.3em;
-        border: 1px solid white;
-        padding: 5px;
-        border-radius: 50%;
-    }
-    /* Seção Profile */
-    .mt-2.mb-4 {
-        text-align: center;
-    }
-    .fas.fa-user {
-        font-size: 10em;
-        color: #cccccc;
-    }
     h3 {
-        color: #ff4170;
+        color: #fff;
         padding: 12px 0;
-        text-align: center;
+        text-align: left;
     }
-    .descriptionUser{
-        padding: 0 100px;
-        text-align: justify;
+    .col-sm-6 h3 {
+        text-align: left;
+        color: #ff4170;
     }
+
     .btn {
         margin: auto;
         display: block;
@@ -77,8 +75,6 @@
         font-weight: bolder;
         border: none;
     }
-
-
     .container-fluid{
         padding: 0;
     }
@@ -90,6 +86,7 @@
     #header{
         border-bottom: 2px solid #cccccc;
         padding: 20px 20px;
+        background-color: #ff4170;
     }
     #header .container-fluid {
         text-align: left;

@@ -1,8 +1,11 @@
 from django.urls import path
 
-from .views import home, create_job
+from .views import *
 
 urlpatterns = [
+    path('parabens', parabens, name='parabens'),
+    path('vaga', vaga, name='vaga'),
+    path('candidatura', candidatura, name='candidatura'),
     path('create-job', create_job, name='create-job'),
     path('', home, name='home'),
 ]
