@@ -34,6 +34,9 @@ class JobAdmin(admin.ModelAdmin):
         else:
             return 'title', 'period','status', 'application_date', 'response_date', 'description', 'skills'
 
+
+
+
 admin.site.register(User)
 admin.site.register(Student)
 admin.site.register(Company)

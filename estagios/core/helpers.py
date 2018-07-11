@@ -1,4 +1,4 @@
-from ..core.models import Company, Job
+from ..core.models import Company, Job, Student
 
 
 def get_company_by_user(user):
@@ -8,6 +8,15 @@ def get_company_by_user(user):
             return company
     except:
         return False
+
+def get_students_by_user(user):
+    try:
+        student = Student.objects.get(user=user)
+        if student:
+            return student
+    except:
+        return False
+
 
 def get_company_jobs_avaliables():
     try:

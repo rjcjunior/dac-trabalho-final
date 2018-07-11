@@ -11,7 +11,7 @@ def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         django_user = authenticate(request, username=form.data.get('email'), password=form.data.get('password'))
-        if django_user is not None:
+        if django_user is not None and django_user.is_active:
             django_login(request, django_user)
             if django_user.is_staff:
                 return redirect('/admin')
