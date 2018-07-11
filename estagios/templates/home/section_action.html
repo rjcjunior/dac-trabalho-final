@@ -1,0 +1,12 @@
+<h3>Minhas Habilidades</h3>
+<ul>
+    {% for skill in skills %}
+	    <li> <i class="fa fa-star" aria-hidden="true" style="color:#cccccccc"></i> {{skill}}</li>
+    {% empty %}
+     	<li>
+	     	<p>Nenhuma skill cadastrada. </p>
+	     	<p>Edite o perfil para cadastar skills</p>
+     	</li>
+    {% endfor %}
+
+</ul>
