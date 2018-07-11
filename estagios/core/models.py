@@ -49,7 +49,7 @@ class Skill(models.Model):
 
 
 class Student(User):
-    skills = models.ManyToManyField(Skill, null=True, blank=True, verbose_name='Habilidades')
+    skills = models.ManyToManyField(Skill, blank=True, verbose_name='Habilidades')
     # availability = models.CharField('disponibilidade', max_length=10, choices=PERIODS)
     class Meta:
         verbose_name = 'estudante'
@@ -80,6 +80,7 @@ class Job(models.Model):
     application_date = models.DateField(verbose_name='Prazo de Inscrição')
     response_date = models.DateField(verbose_name='Data de Resposta')
     skills = models.ManyToManyField(Skill, verbose_name='Habilidades')
+    candidatos = models.ManyToManyField(Student, blank=True, verbose_name='Candidatos')
 
     class Meta:
         verbose_name = 'estagio'

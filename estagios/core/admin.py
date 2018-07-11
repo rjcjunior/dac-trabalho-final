@@ -16,7 +16,6 @@ class JobAdmin(admin.ModelAdmin):
         qs = super(JobAdmin, self).get_queryset(request)
         if request.user.is_superuser:
             return qs
-            
         company = get_company_by_user(request.user)
         return qs.filter(company=company)
 
@@ -25,14 +24,13 @@ class JobAdmin(admin.ModelAdmin):
             company = get_company_by_user(request.user)
             obj.company = company
             obj.status = form.initial.get('status') or STATUS_PENDING
-
         super(JobAdmin, self).save_model(request, obj, form, change)
 
     def get_fields(self, request, obj=None):
         if request.user.is_superuser:
             return super(JobAdmin, self).get_fields(request)
         else:
-            return 'title', 'period','status', 'application_date', 'response_date', 'description', 'skills'
+            return 'title', 'period','status', 'application_date', 'response_date', 'description', 'skills','candidatos'
 
 
 

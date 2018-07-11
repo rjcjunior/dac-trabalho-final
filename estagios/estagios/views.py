@@ -22,6 +22,12 @@ def home(request):
         elif student: 
             description = student.description
             skills = student.skills.all()
+            aux = []
+            for i in jobs_list.all():
+                if not (student in i.candidatos.all()):
+                    aux.append(i)
+            jobs_list = aux
+
         context = {
             "displayname": displayname,
             "jobs_list": jobs_list,
@@ -66,9 +72,37 @@ def candidatura(request):
     else:
         return redirect('login')
 
-def vaga(request):
+#TODO Colocar um notice avisando que a candidatura foi um sucesso
+def candidatar(request,idJob):
     if request.user.is_authenticated:
-        return render(request, 'estagios/templates/vaga.html' )
+        student = get_students_by_user(request.user)
+        job = get_company_jobs_by_id(idJob)[0]
+        if not job.skills.all: #Se lista de skills do job for vazia
+            job.candidatos.add(student)
+            job.save
+            return redirect('home')
+        else:
+            confirm = True
+            for i in job.skills.all():
+                if not (i in student.skills.all()): 
+                    confirm = False
+            if confirm:
+                job.candidatos.add(student)
+                job.save
+                return redirect('home')
+            else:
+                return redirect('/vaga/'+ str(idJob))
+    else:
+        return redirect('/vaga/'+ str(idJob))
+
+
+def vaga(request,id):
+    if request.user.is_authenticated:
+        job = get_company_jobs_by_id(id)
+        context = {
+            "job": job[0]
+        }
+        return render(request, 'estagios/templates/vaga.html', context )
     else:
         return redirect('login')
 

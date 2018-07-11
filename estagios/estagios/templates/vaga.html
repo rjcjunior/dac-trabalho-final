@@ -10,19 +10,25 @@
 </header><!-- /header -->
 <div class="row">
         <div class="col-sm-6">
-            <h3>Titulo da vaga aqui</h3>
-            <p>Nome da empresa</p>
-            <p>Descrição</p>
+            <h3>{{ job.title }}</h3>
+            <p>{{ job.company }}</p>
+            <p>{{ job.description }}</p>
             <h3>Habilidades requeridas</h3>
             <ul>
-                <li><i class="fa fa-star" aria-hidden="true"></i>Loop Para a habilidades</li>
+                {% for skill in job.skills.all %}
+                    <li><i class="fa fa-star" aria-hidden="true"></i>{{skill}}</li>
+                {% empty %}
+                    <li>
+                        Nenhum Habilidade requirida.
+                    </li>
+                {% endfor %}
             </ul>
         </div>
         <div class="col-sm-6">
             <i class="fas fa-briefcase"></i>
         </div>
         <div style="width: 100%;">
-            <a href="" class="btn btn-primary btn-login"/> Candidatar-se</a>
+            <a href="{% url 'candidatar' idJob=job.id %}" class="btn btn-primary btn-login"/> Candidatar-se</a>
         </div>
         <div style="width: 100%;">
             <a href="{% url 'home' %}" class="btn btn-primary btn-login"/> Voltar</a>

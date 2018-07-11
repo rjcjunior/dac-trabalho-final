@@ -11,7 +11,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ job.title }}</h5>
                 <p class="card-text">{{ job.description }}</p>
-               <a href="{% url 'vaga' job.id  %}" class="card-link">   <i class="fas fa-plus"></i></a>
+               <a href="{% url 'vaga' id=job.id  %}" class="card-link">   <i class="fas fa-plus"></i></a>
             </div>
         </div>
         <div class="job-section">

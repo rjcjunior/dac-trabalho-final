@@ -29,3 +29,10 @@ def get_company_jobs(company):
         return Job.objects.filter(company=company)
     except:
         return None
+        
+def get_company_jobs_by_id(id):
+    try:
+        return Job.objects.filter(id=id)
+    except:
+        return None
+
