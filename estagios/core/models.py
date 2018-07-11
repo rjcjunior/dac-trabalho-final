@@ -27,7 +27,7 @@ STATUS_LIST = (
 class User(models.Model):
     user = models.OneToOneField(DjangoUser, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=False)
-    description = models.CharField(max_length=1024, verbose_name='Descrição',default='')
+    description = models.CharField(max_length=1024, verbose_name='Descrição',default='',null=True, blank=True)
 
     class Meta:
         verbose_name = 'usuário'
@@ -49,7 +49,7 @@ class Skill(models.Model):
 
 
 class Student(User):
-    skills = models.ManyToManyField(Skill, verbose_name='Habilidades')
+    skills = models.ManyToManyField(Skill, null=True, blank=True, verbose_name='Habilidades')
     # availability = models.CharField('disponibilidade', max_length=10, choices=PERIODS)
     class Meta:
         verbose_name = 'estudante'

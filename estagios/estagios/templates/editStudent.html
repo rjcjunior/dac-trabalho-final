@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<header id="header" class="">
+    <div class="container-fluid">
+        <img class="img-header" src="../../static/logo.png">   
+    </div>
+    
+</header><!-- /header -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="validation-alerts">
+                {% if messages %}
+                    <div class="alert alert-success" role="alert">
+                        {% for message in messages %}
+                            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for error in form.non_field_errors %}
+                            <p{% if error.tags %} class="{{ error.tags }}"{% endif %}>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <form class="log-in-form" method="post">
+                {{ form }}
+
+                <div class="button-container">
+                    <input type="submit" class="btn btn-primary btn-login"  value="Cadastrar" />
+                    <a class="btn btn-primary btn-login" href="{% url 'home' %}">Cancelar</a>
+                </div>
+                {% csrf_token %}
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <i class="fas fa-sticky-note"></i>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block style %}
+<style>
+    #header{
+        border-bottom: 2px solid #cccccc;
+        padding: 20px 20px;
+    }
+    #header .container-fluid {
+        text-align: left;
+    }
+    #header .container-fluid .img-header {
+        max-width: 100%;
+        max-height: 100%;
+        width: 126px;
+        vertical-align: top;
+    }
+        /* Seção direita */
+    .fas.fa-sticky-note {
+        color: #cccccc;
+        opacity: 0.1;
+        text-align: center;
+        font-size: 19.9em;
+        margin: 152px;
+    }
+
+    input,textarea, select{
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    select{
+        margin: 5px auto;
+    }
+
+    .btn {
+        margin: auto;
+        display: block;
+        width: 50%;
+        margin-bottom: 10px;
+    }
+    .btn-login {
+        background: #cccccc;
+        color: #ff4170;
+        font-weight: bolder;
+        border: none;
+    }
+
+</style>
+{% endblock style %}

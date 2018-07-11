@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from ..core.helpers import *
-from .forms import JobCreateForm
+from .forms import JobCreateForm, StudentEditForm
 from ..core.models import Job, STATUS_PENDING
 
 
@@ -30,6 +30,17 @@ def home(request):
             "skills":skills
         }
         return render(request, 'estagios/templates/home.html', context)
+    else:
+        return redirect('login')
+
+def editStudent(request):
+    student = get_students_by_user(request.user)
+    if student:
+        form = StudentEditForm(request.POST or None, instance= student)
+        if form.is_valid():
+            form.save()
+            return redirect('home')            
+        return render(request, 'estagios/templates/editStudent.html', {'form': form})
     else:
         return redirect('login')
 

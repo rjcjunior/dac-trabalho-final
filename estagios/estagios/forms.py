@@ -12,11 +12,8 @@ class JobCreateForm(forms.ModelForm):
         model = Job
         fields = ['title', 'description', 'period']
 
-class JobCreateForm(forms.ModelForm):
-    description = forms.CharField(required=True, max_length=1024, widget=forms.Textarea, label='Descrição')
-    application_date = forms.DateField(required=True, widget=widgets.SelectDateWidget, label='Prazo de Inscrição')
-    response_date = forms.DateField(required=True, widget=widgets.SelectDateWidget, label='Data de Resposta')
-
+class StudentEditForm(forms.ModelForm):
     class Meta:
-        model = Job
-        fields = ['title', 'description', 'period']
+        model = Student
+        fields = ('description', 'skills')
+
