@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.urls import reverse
 
 from ..core.helpers import get_available_jobs, get_students_by_user, get_company_by_user, get_company_jobs, \
     get_job_by_id
@@ -76,36 +77,43 @@ def candidatura(request):
         return redirect('login')
 
 
+def candidatar_sucesso(job, student):
+    job.candidatos.add(student)
+    job.save()
+    return redirect('home')
+
+
 # TODO Colocar um notice avisando que a candidatura foi um sucesso
-def candidatar(request, idJob):
+def candidatar(request, job_id):
     if request.user.is_authenticated:
         student = get_students_by_user(request.user)
-        job = get_job_by_id(idJob)
-        if not job.skills.all:  # Se lista de skills do job for vazia
-            job.candidatos.add(student)
-            job.save()
-            return redirect('home')
+        job = get_job_by_id(job_id)
+        all_skills = job.skills.all()
+
+        if not all_skills:  # Se lista de skills do job for vazia
+            messages.success(request, 'Candidatura feita com sucesso!')
+            return candidatar_sucesso(job, student)
         else:
             confirm = True
-            for i in job.skills.all():
-                if not (i in student.skills.all()):
+            for i in all_skills:
+                if not (i in all_skills):
                     confirm = False
+                    messages.error('Você não possui todas as qualificações necessárias para esta vaga!')
             if confirm:
-                job.candidatos.add(student)
-                job.save()
-                messages.success('Candidatura feita com sucesso!')
-                return redirect('home')
+                messages.success(request, 'Candidatura feita com sucesso!')
+                return candidatar_sucesso(job, student)
             else:
-                return redirect('/vaga/' + str(idJob))
+                messages.error('Não é possível realizar sua candidatura')
+                return redirect('/vaga/' + str(job_id))
     else:
-        return redirect('/vaga/' + str(idJob))
+        return redirect(reverse('login'))
 
 
 def vaga(request, id):
     if request.user.is_authenticated:
         job = get_job_by_id(id)
         context = {
-            "job": job[0]
+            "job": job
         }
         return render(request, 'estagios/templates/vaga.html', context)
     else:
