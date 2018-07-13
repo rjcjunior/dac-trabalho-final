@@ -12,8 +12,10 @@ class JobCreateForm(forms.ModelForm):
         model = Job
         fields = ['title', 'description', 'period']
 
+
 class StudentEditForm(forms.ModelForm):
+    description = forms.CharField(required=True, max_length=1024, widget=forms.Textarea, label='Descrição')
+
     class Meta:
         model = Student
         fields = ('description', 'skills')
-
