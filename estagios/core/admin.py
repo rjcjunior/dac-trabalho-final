@@ -7,7 +7,7 @@ from .forms import JobForm
 
 
 class JobAdmin(admin.ModelAdmin):
-    list_display = ['title', 'company','status', 'application_date']
+    list_display = ['title', 'company', 'status', 'application_date']
     ordering = ('status',)
     filter_horizontal = ('skills',)
     form = JobForm
@@ -30,9 +30,7 @@ class JobAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             return super(JobAdmin, self).get_fields(request)
         else:
-            return 'title', 'period','status', 'application_date', 'response_date', 'description', 'skills','candidatos'
-
-
+            return 'title', 'period', 'status', 'application_date', 'response_date', 'description', 'skills', 'candidatos'
 
 
 admin.site.register(User)

@@ -11,9 +11,3 @@ class JobCreateForm(forms.ModelForm):
     class Meta:
         model = Job
         fields = ['title', 'description', 'period']
-
-class StudentEditForm(forms.ModelForm):
-    class Meta:
-        model = Student
-        fields = ('description', 'skills')
-

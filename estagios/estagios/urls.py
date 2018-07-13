@@ -1,10 +1,10 @@
 from django.urls import path
 
-from .views import *
+from .views import candidatar, edit_student, parabens, vaga, candidatura, create_job, home
 
 urlpatterns = [
     path('candidatar/<int:idJob>', candidatar, name='candidatar'),
-    path('editStudent', editStudent, name='editStudent'),
+    path('edit-student', edit_student, name='edit-student'),
     path('parabens', parabens, name='parabens'),
     path('vaga/<int:id>', vaga, name='vaga'),
     path('candidatura', candidatura, name='candidatura'),
