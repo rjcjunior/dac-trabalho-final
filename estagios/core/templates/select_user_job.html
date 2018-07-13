@@ -1,0 +1,16 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+    <h1>Selecione um usuário para candidatar a vaga</h1>
+    <ul>
+        {% for student in student_list %}
+        <li>
+            <label>
+                <input type="radio" value="{{ student.id }}"> {{ student }}
+            </label>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <input type="submit" value="Salvar" class="default" name="_save" style="float: none;">
+{% endblock %}
+
