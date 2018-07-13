@@ -14,6 +14,7 @@ class JobAdmin(admin.ModelAdmin):
     ordering = ('status',)
     filter_horizontal = ('skills', 'candidatos')
     form = JobForm
+    readonly_fields = ['show_candidates_url', ]
 
     def get_queryset(self, request):
         qs = super(JobAdmin, self).get_queryset(request)
@@ -40,7 +41,8 @@ class JobAdmin(admin.ModelAdmin):
 
     def get_fields(self, request, obj=None):
         if request.user.is_superuser:
-            return super(JobAdmin, self).get_fields(request)
+            fields = super(JobAdmin, self).get_fields(request)
+            return ['show_candidates_url', ] + fields
         else:
             return 'title', 'period', 'status', 'application_date', 'response_date', 'description', 'skills', \
                    'candidatos', 'show_candidates_url'
