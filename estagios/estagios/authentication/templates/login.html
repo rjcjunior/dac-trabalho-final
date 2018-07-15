@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<header id="header" class="">
+    <div class="container-fluid">
+        <img class="img-header" src="../../static/logo.png">   
+        <h2>JOBER</h2>
+    </div>
+    
+</header><!-- /header -->
+
+<div class="container form-login">
+    <div class="">
+        <form class="log-in-form" method="post">
+            <div class="validation-alerts">
+                {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for message in messages %}
+                            <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for error in form.non_field_errors %}
+                            <p{% if error.tags %} class="{{ error.tags }}"{% endif %}>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <input name="email" class="form-control" type="text" placeholder="Login...">
+                <small class="form-text text-danger">{{ form.email.errors }}</small>
+            </div>
+            <div class="form-group">
+                <input name="password" class="form-control" type="password" placeholder="Senha...">
+                <small class="form-text text-danger">{{ form.password.errors }}</small>
+            </div>
+            <input type="submit" class="btn btn-primary btn-login" value="Login" />
+            <a class="btn btn-outline" href="{% url 'register' %}">Registrar Agora!</a>
+        {% csrf_token %}
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block style %}
+<style>
+body::after {
+    content: "";
+    background-image: url("../../static/logo.jpg");
+    opacity: 0.1;
+    top: -52px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 59em;
+}
+.form-login{
+    width: 500px;
+}
+.log-in-form {
+    padding: 1rem;
+    border-radius: 0;
+    margin-top: 40px;
+}
+.btn-outline{
+    margin-top: 16px;
+}
+.btn {
+    margin: auto;
+    display: block;
+}
+.btn-login {
+    background: #cccccc;
+    color: #ff4170;
+    font-weight: bolder;
+    border: none;
+}
+#header{
+    border-bottom: 5px solid #cccccc;
+    padding-bottom: 20px;
+}
+#header .container-fluid {
+    text-align: left;
+}
+#header .container-fluid .img-header {
+    max-width: 100%;
+    max-height: 100%;
+    width: 126px;
+    vertical-align: top;
+}
+
+#header h2 {
+    color: #ff4170;
+    font-weight: bolder;
+    display: inline-block;
+    font-size: 5em;
+    margin: 24px 0 0 34px !important;
+}
+footer img {
+    max-width: 100%;
+    max-height: 100%;
+    height: 61px;
+    margin: 7px 27px 0 0;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 20px !important;
+  background: #ff4170;
+  width: 100%;
+}
+
+</style>
+{% endblock style %}
