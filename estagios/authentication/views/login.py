@@ -19,7 +19,7 @@ def login(request):
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        django_user = authenticate(request, username=form.data.get('email'), password=form.data.get('password'))
+        django_user = authenticate(email=form.data.get('email'), password=form.data.get('password'))
         if django_user is not None:
             user = get_user(django_user)
             if (user and user.is_active) or django_user.is_superuser:
