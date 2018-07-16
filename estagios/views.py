@@ -8,29 +8,41 @@ from .core.models import Job, STATUS_PENDING
 
 def home(request):
     if request.user.is_authenticated:
-        displayname = request.user.get_full_name()
-        jobs_list = get_company_jobs_avaliables()
-        isCompany = False
-        student = get_students_by_user(request.user)
-        company = get_company_by_user(request.user)
-        skills = []
-        description = ''
-        if company:
-            displayname = company.company_name
-            jobs_list = get_company_jobs(company)
-            isCompany = True
-            description = company.description
-        elif student:
-            description = student.description
-            skills = student.skills.all()
-        context = {
-            "displayname": displayname,
-            "jobs_list": jobs_list,
-            "isCompany": isCompany,
-            "description": description,
-            "skills": skills
-        }
-        return render(request, 'estagios/templates/home.html', context)
+        print('dsadsa--------------')
+        if verify_job(request.user):
+            print('dsadsa')
+            context = {
+                "displayname": displayname,
+                "jobs_list": jobs_list,
+                "isCompany": isCompany,
+                "description": description,
+                "skills": skills
+            }
+            return render(request, 'estagios/templates/parabens.html', context)
+        else:
+
+            displayname = request.user.get_full_name()
+            jobs_list = get_company_jobs_avaliables()
+            isCompany = False
+            student = get_students_by_user(request.user)
+            company = get_company_by_user(request.user)
+            skills = []
+            description = ''
+            if company:
+                displayname = company.company_name
+                jobs_list = get_company_jobs(company)
+                isCompany = True
+                description = company.description
+            elif student:
+                description = student.description
+            context = {
+                "displayname": displayname,
+                "jobs_list": jobs_list,
+                "isCompany": isCompany,
+                "description": description,
+                "skills": skills
+            }
+            return render(request, 'estagios/templates/home.html', context)
     else:
         return redirect('login')
 

@@ -38,15 +38,3 @@ def get_job_by_id(id):
         return Job.objects.get(id=id)
     except:
         return None
-
-def verify_job(user)
-    try:
-        student = Student.objects.get(user=user)
-
-        if student:
-            return Job.objects.filter(escolhido=user) 
-        else 
-            return False
-    except:
-        return False
-

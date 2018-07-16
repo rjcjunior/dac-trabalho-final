@@ -68,10 +68,10 @@ class JobAdmin(admin.ModelAdmin):
         if request.method == 'POST':
             escolhido_id = int(request.POST.get('escolhido'))
             escolhido = Student.objects.get(id=escolhido_id)
-            job.escolhido = escolhido
-            job.status = STATUS_PENDING 
+            job.escolhido = escolhido 
+            job.status = STATUS_PENDING
             job.save()
-            
+
             return redirect('/admin/core/job/')
 
         return TemplateResponse(request, "core/templates/select_user_job.html", context)
