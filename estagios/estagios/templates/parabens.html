@@ -10,7 +10,7 @@
 </header><!-- /header -->
 <div class="row">
         <div class="col-sm-6">
-            <h3>Você foi escolhido pela empresa COLOCAR NOME DA EMPRESA  para a vaga  TITULO DA VAGA</h3>
+            <h3>Você foi escolhido pela empresa {{job.company}} para a vaga {{job.title}}</h3>
             <h4>Instruções</h4>
             <p>
                 1.Pegar contrato na empresa ou intermediadora (CIEE, etc) e entregar na Coordenação do Curso (sala 408) junto com o Plano de Atividades, ambos já assinados pela empresa, e o Formulário de Entrada de Dados;
@@ -26,7 +26,7 @@
             <i class="fas fa-star"></i>
         </div>
         <div style="width: 100%; margin-top: 46px;">
-            <a href="{% url 'home' %}" class="btn btn-primary btn-login"/> OK</a>
+            <a href="{% url 'logout' %}" class="btn btn-primary btn-login"/> Logout</a>
         </div>
 
 </div>

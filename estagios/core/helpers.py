@@ -39,3 +39,19 @@ def get_job_by_id(id):
     except:
         return None
 
+def verify_job(user):
+    try:
+        student = get_students_by_user(user)
+        if student:
+            job_return = Job.objects.filter(escolhido__id=student.id)
+            print(job_return.all())
+            for i in job_return.all():
+                if i.status == 'CLOSED':
+                    return i
+                else:
+                    return false
+            return false
+        else:
+            return False
+    except:
+        return False

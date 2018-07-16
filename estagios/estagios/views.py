@@ -2,42 +2,48 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
 
-from ..core.helpers import get_available_jobs, get_students_by_user, get_company_by_user, get_company_jobs, \
-    get_job_by_id
+from ..core.helpers import  *
 from .forms import JobCreateForm, StudentEditForm
 from ..core.models import Job, STATUS_PENDING
 
 
 def home(request):
     if request.user.is_authenticated:
-        displayname = request.user.get_full_name()
-        jobs_list = get_available_jobs()
-        isCompany = False
-        student = get_students_by_user(request.user)
-        company = get_company_by_user(request.user)
-        skills = []
-        if company:
-            displayname = company.company_name
-            jobs_list = get_company_jobs(company)
-            isCompany = True
-            description = company.description
-        elif student:
-            description = student.description
-            skills = student.skills.all()
-            aux = []
-            for i in jobs_list.all():
-                if not (student in i.candidatos.all()):
-                    aux.append(i)
-            jobs_list = aux
+            displayname = request.user.get_full_name()
+            jobs_list = get_available_jobs()
+            isCompany = False
+            student = get_students_by_user(request.user)
+            company = get_company_by_user(request.user)
+            skills = []
+            if company:
+                displayname = company.company_name
+                jobs_list = get_company_jobs(company)
+                isCompany = True
+                description = company.description
+            elif student:
+                job_Congratulations = verify_job(request.user)
+                if job_Congratulations:
+                    context = {
+                        "job": job_Congratulations
+                    }
+                    return render(request, 'estagios/templates/parabens.html', context)
 
-        context = {
-            "displayname": displayname,
-            "jobs_list": jobs_list,
-            "isCompany": isCompany,
-            "description": description,
-            "skills": skills
-        }
-        return render(request, 'estagios/templates/home.html', context)
+                description = student.description
+                skills = student.skills.all()
+                aux = []
+                for i in jobs_list.all():
+                    if not (student in i.candidatos.all()) and not(i.escolhido) :
+                        aux.append(i)
+                jobs_list = aux
+
+            context = {
+                "displayname": displayname,
+                "jobs_list": jobs_list,
+                "isCompany": isCompany,
+                "description": description,
+                "skills": skills
+            }
+            return render(request, 'estagios/templates/home.html', context)
     else:
         return redirect('login')
 
