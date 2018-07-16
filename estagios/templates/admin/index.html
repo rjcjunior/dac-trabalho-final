@@ -5,6 +5,7 @@
 <div id="content-related">
     <div class="module" id="recent-actions-module">
         <h2>Minhas Ações</h2>
+        {% if request.user.is_superuser %}
         <h3>Usuários Aguardando Aprovação</h3>
             {% inactive_users as user_list %}
             {% if not user_list %}
@@ -18,6 +19,9 @@
             {% endfor %}
             </ul>
             {% endif %}
+        {% else %}
+            <p>Nada a exibir aqui</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
