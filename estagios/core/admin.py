@@ -52,7 +52,7 @@ class JobAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             if obj:
                 fields = super(JobAdmin, self).get_fields(request)
-                return ['show_candidates_url', ] + fields
+                return ['show_candidates_url', 'escolhido'] + fields
             else:
                 fields = super(JobAdmin, self).get_fields(request)
                 return  fields
