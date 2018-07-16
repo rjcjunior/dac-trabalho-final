@@ -2,16 +2,22 @@ from django.contrib import admin
 from django.urls import path, reverse
 from django.template.response import TemplateResponse
 from django.utils.html import format_html
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.contrib.auth.models import User as DjangoUser
 
 from .models import Student, Company, User, Job
 from .helpers import get_company_by_user
 from .models import STATUS_PENDING
 from .forms import JobForm
 
+admin.site.site_header = 'Jober'
+admin.site.site_title = 'Jober'
+admin.site.site_url = 'http://jober.com/'
+admin.site.index_title = 'Painel Administrativo'
+
 
 class JobAdmin(admin.ModelAdmin):
-    list_display = ['title', 'company', 'status', 'application_date', 'show_candidates_url','escolhido']
+    list_display = ['title', 'company', 'status', 'application_date', 'show_candidates_url', 'escolhido']
     ordering = ('status',)
     filter_horizontal = ('skills', 'candidatos')
     form = JobForm
@@ -24,8 +30,6 @@ class JobAdmin(admin.ModelAdmin):
             return qs
         company = get_company_by_user(request.user)
         return qs.filter(company=company)
-
-
 
     def save_model(self, request, obj, form, change):
         if not request.user.is_superuser:
@@ -75,12 +79,12 @@ class JobAdmin(admin.ModelAdmin):
         context = dict(
             self.admin_site.each_context(request),
             student_list=student_list,
-        ) 
+        )
 
         if request.method == 'POST':
             escolhido_id = int(request.POST.get('escolhido'))
             escolhido = Student.objects.get(id=escolhido_id)
-            job.escolhido = escolhido 
+            job.escolhido = escolhido
             job.status = STATUS_PENDING
             job.save()
 
@@ -89,7 +93,12 @@ class JobAdmin(admin.ModelAdmin):
         return TemplateResponse(request, "core/templates/select_user_job.html", context)
 
 
-admin.site.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['get_user_fullname', 'user', 'is_active']
+
+
+admin.site.unregister(DjangoUser)
+admin.site.register(User, UserAdmin)
 admin.site.register(Student)
 admin.site.register(Company)
 admin.site.register(Job, JobAdmin)

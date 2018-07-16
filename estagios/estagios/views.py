@@ -2,48 +2,52 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
 
-from ..core.helpers import  *
+from ..core.helpers import *
 from .forms import JobCreateForm, StudentEditForm
 from ..core.models import Job, STATUS_PENDING
 
 
 def home(request):
     if request.user.is_authenticated:
-            displayname = request.user.get_full_name()
-            jobs_list = get_available_jobs()
-            isCompany = False
-            congratulations = False
-            job = ''
-            student = get_students_by_user(request.user)
-            company = get_company_by_user(request.user)
-            skills = []
-            if company:
-                displayname = company.company_name
-                jobs_list = get_company_jobs(company)
-                isCompany = True
-                description = company.description
-            elif student:
-                job_Congratulations = verify_job(request.user)
-                if job_Congratulations:
-                    congratulations = True
-                description = student.description
-                skills = student.skills.all()
-                aux = []
-                for i in jobs_list.all():
-                    if not (student in i.candidatos.all()) and not(i.escolhido) :
-                        aux.append(i)
-                jobs_list = aux
+        if request.user.is_superuser:
+            return redirect('admin:index')
+        displayname = request.user.get_full_name()
+        jobs_list = get_available_jobs()
+        isCompany = False
+        congratulations = False
+        job = ''
+        description = ''
+        job_Congratulations = ''
+        student = get_students_by_user(request.user)
+        company = get_company_by_user(request.user)
+        skills = []
+        if company:
+            displayname = company.company_name
+            jobs_list = get_company_jobs(company)
+            isCompany = True
+            description = company.description
+        elif student:
+            job_Congratulations = verify_job(request.user)
+            if job_Congratulations:
+                congratulations = True
+            description = student.description
+            skills = student.skills.all()
+            aux = []
+            for i in jobs_list.all():
+                if not (student in i.candidatos.all()) and not (i.escolhido):
+                    aux.append(i)
+            jobs_list = aux
 
-            context = {
-                "displayname": displayname,
-                "jobs_list": jobs_list,
-                "isCompany": isCompany,
-                "description": description,
-                "skills": skills,
-                "congratulations": congratulations,
-                "job_Congratulations": job_Congratulations
-            }
-            return render(request, 'estagios/templates/home.html', context)
+        context = {
+            "displayname": displayname,
+            "jobs_list": jobs_list,
+            "isCompany": isCompany,
+            "description": description,
+            "skills": skills,
+            "congratulations": congratulations,
+            "job_Congratulations": job_Congratulations
+        }
+        return render(request, 'estagios/templates/home.html', context)
     else:
         return redirect('login')
 
@@ -89,7 +93,6 @@ def candidatar_sucesso(job, student):
     return redirect('home')
 
 
-# TODO Colocar um notice avisando que a candidatura foi um sucesso
 def candidatar(request, job_id):
     if request.user.is_authenticated:
         student = get_students_by_user(request.user)
@@ -132,6 +135,6 @@ def parabens(request, id):
         context = {
             "job": job
         }
-        return render(request, 'estagios/templates/parabens.html',context)
+        return render(request, 'estagios/templates/parabens.html', context)
     else:
         return redirect('login')

@@ -9,7 +9,7 @@ from estagios.core.models import Student, Company
 
 
 def create_django_user(name, email, password, is_staff=False):
-    return DjangoUser.objects.create_user(email, email, password, first_name=name, is_staff=is_staff,is_active=False)
+    return DjangoUser.objects.create_user(email, email, password, first_name=name, is_staff=is_staff)
 
 
 def student_create(form):

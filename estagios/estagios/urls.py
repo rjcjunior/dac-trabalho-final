@@ -3,7 +3,7 @@ from django.urls import path
 from .views import candidatar, edit_student, parabens, vaga, candidatura, create_job, home
 
 urlpatterns = [
-    path('candidatar/<int:idJob>', candidatar, name='candidatar'),
+    path('candidatar/<int:job_id>', candidatar, name='candidatar'),
     path('edit-student', edit_student, name='edit-student'),
     path('parabens/<int:id>', parabens, name='parabens'),
     path('vaga/<int:id>', vaga, name='vaga'),

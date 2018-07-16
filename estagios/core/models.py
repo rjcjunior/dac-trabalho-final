@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User as DjangoUser
+from django.urls import reverse
 
 PERIOD_MORNING = 'MORNING'
 PERIOD_AFTERNOON = 'AFTERNOON'
@@ -25,8 +26,8 @@ STATUS_LIST = (
 
 
 class User(models.Model):
-    user = models.OneToOneField(DjangoUser, on_delete=models.CASCADE)
-    is_active = models.BooleanField(default=False)
+    user = models.OneToOneField(DjangoUser, on_delete=models.CASCADE, verbose_name='Usuário')
+    is_active = models.BooleanField(default=False, verbose_name='Usuário está ativo?')
     description = models.CharField(max_length=1024, verbose_name='Descrição', default='', null=True, blank=True)
 
     class Meta:
@@ -34,7 +35,16 @@ class User(models.Model):
         verbose_name_plural = 'usuários'
 
     def __str__(self):
+        return self.get_user_fullname()
+
+    def get_admin_url(self):
+        return reverse("admin:%s_%s_change" % (self._meta.app_label, self._meta.model_name),
+                       args=(self.id,))
+
+    def get_user_fullname(self):
         return self.user.get_full_name()
+
+    get_user_fullname.short_description = 'Nome do Usuário'
 
 
 class Skill(models.Model):
@@ -82,7 +92,8 @@ class Job(models.Model):
     response_date = models.DateField(verbose_name='Data de Resposta')
     skills = models.ManyToManyField(Skill, verbose_name='Habilidades')
     candidatos = models.ManyToManyField(Student, blank=True, verbose_name='Candidatos')
-    escolhido = models.ForeignKey(Student, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Escolhido',related_name='Escolhido')
+    escolhido = models.ForeignKey(Student, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Escolhido',
+                                  related_name='Escolhido')
 
     class Meta:
         verbose_name = 'estagio'

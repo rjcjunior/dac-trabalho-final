@@ -1,0 +1,27 @@
+{% extends "admin/index.html" %}
+{% load inactive_users %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>Minhas Ações</h2>
+        {% if request.user.is_superuser %}
+        <h3>Usuários Aguardando Aprovação</h3>
+            {% inactive_users as user_list %}
+            {% if not user_list %}
+            <p>Nenhum usuário encontrado</p>
+            {% else %}
+            <ul class="actionlist">
+            {% for user in user_list %}
+                <li class="changelink">
+                    <a href="{{ user.get_admin_url }}">{{ user }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        {% else %}
+            <p>Nada a exibir aqui</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
