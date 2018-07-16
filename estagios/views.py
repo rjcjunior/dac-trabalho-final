@@ -8,19 +8,6 @@ from .core.models import Job, STATUS_PENDING
 
 def home(request):
     if request.user.is_authenticated:
-        print('dsadsa--------------')
-        if verify_job(request.user):
-            print('dsadsa')
-            context = {
-                "displayname": displayname,
-                "jobs_list": jobs_list,
-                "isCompany": isCompany,
-                "description": description,
-                "skills": skills
-            }
-            return render(request, 'estagios/templates/parabens.html', context)
-        else:
-
             displayname = request.user.get_full_name()
             jobs_list = get_company_jobs_avaliables()
             isCompany = False
