@@ -3,6 +3,13 @@
         <a href="{% url 'create-job' %}" class="btn btn-raised btn-primary btn-empresa"> <i class="fas fa-plus"></i> Cadastrar Nova Vaga</a>
    {% endif %}
 
+   {% if not isCompany  and congratulations %}
+        <div class="alert alert-success" role="alert">
+          Você foi escolhido para a vaga {{job_Congratulations.title}} da empresa {{job_Congratulations.company}}.
+          Entre no <a href="{% url 'parabens' id=job_Congratulations.id %}"> Link</a> para mais detalhes.
+        </div>
+   {% endif %}
+
     <h3>Vagas Disponiveis</h3>
 
  

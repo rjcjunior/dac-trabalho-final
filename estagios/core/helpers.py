@@ -44,7 +44,6 @@ def verify_job(user):
         student = get_students_by_user(user)
         if student:
             job_return = Job.objects.filter(escolhido__id=student.id)
-            print(job_return.all())
             for i in job_return.all():
                 if i.status == 'CLOSED':
                     return i

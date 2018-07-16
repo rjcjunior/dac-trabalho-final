@@ -12,6 +12,8 @@ def home(request):
             displayname = request.user.get_full_name()
             jobs_list = get_available_jobs()
             isCompany = False
+            congratulations = False
+            job = ''
             student = get_students_by_user(request.user)
             company = get_company_by_user(request.user)
             skills = []
@@ -23,11 +25,7 @@ def home(request):
             elif student:
                 job_Congratulations = verify_job(request.user)
                 if job_Congratulations:
-                    context = {
-                        "job": job_Congratulations
-                    }
-                    return render(request, 'estagios/templates/parabens.html', context)
-
+                    congratulations = True
                 description = student.description
                 skills = student.skills.all()
                 aux = []
@@ -41,7 +39,9 @@ def home(request):
                 "jobs_list": jobs_list,
                 "isCompany": isCompany,
                 "description": description,
-                "skills": skills
+                "skills": skills,
+                "congratulations": congratulations,
+                "job_Congratulations": job_Congratulations
             }
             return render(request, 'estagios/templates/home.html', context)
     else:
@@ -126,8 +126,12 @@ def vaga(request, id):
         return redirect('login')
 
 
-def parabens(request):
+def parabens(request, id):
     if request.user.is_authenticated:
-        return render(request, 'estagios/templates/parabens.html')
+        job = get_job_by_id(id)
+        context = {
+            "job": job
+        }
+        return render(request, 'estagios/templates/parabens.html',context)
     else:
         return redirect('login')
